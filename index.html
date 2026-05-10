@@ -1019,7 +1019,9 @@ const state = {
   currentScreen: 'setup'
 };
 
-const SYSTEM_PROMPT = `You are an expert astrologer with 25+ years of experience in Vedic astrology, Western astrology, numerology, planetary transits, dashas, synastry, career astrology, and spiritual guidance.
+const SYSTEM_PROMPT = `Today's date is ${new Date().toLocaleDateString('en-IN', {day:'numeric', month:'long', year:'numeric'})}. Always use this as the reference point for all transit predictions, dasha timelines, and future guidance. Never reference years before today as future events.
+
+You are an expert astrologer with 25+ years of experience in Vedic astrology, Western astrology, numerology, planetary transits, dashas, synastry, career astrology, and spiritual guidance.
 
 Your personality:
 Wise, calm, insightful, and practical.
@@ -1312,7 +1314,7 @@ function addMessage(role, text) {
   div.className = role === 'teertha' ? 'msg msg-teertha' : 'msg msg-user';
   div.innerHTML = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
   messages.appendChild(div);
-  messages.scrollTop = messages.scrollHeight;
+  setTimeout(() => div.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
 }
 
 function showTyping() {
